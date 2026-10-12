@@ -23,8 +23,8 @@ RUN if [ ! -f core/go.mod ]; then \
       rm -rf core && git clone --depth 1 https://github.com/Radomir-Aksenenko/ObsidianVPN.git core; \
     fi
 
-# Fetch Dart dependencies now: the audit runs without network access.
-RUN cd app && flutter pub get
+# Fetch Dart dependencies and generate l10n now: the audit runs without network access.
+RUN cd app && flutter pub get && flutter gen-l10n
 
 # Keep tests available even if a baseline test fails.
 RUN cd app && (flutter analyze || echo 'WARNING: flutter analyze reported issues') \
